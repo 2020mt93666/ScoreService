@@ -1,9 +1,12 @@
 module.exports = mongoose => {
   var schema = mongoose.Schema(
     {
-      title: String,
-      description: String,
-      published: Boolean
+      name: String,
+      match: String,
+      player: String,
+      type: String,
+      count: Number,
+      endOfMatch: Boolean
     },
     { timestamps: true }
   );

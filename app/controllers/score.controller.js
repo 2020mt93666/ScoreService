@@ -4,7 +4,7 @@ const ScoreModel = db.scores;
 // Create and Save a new score
 exports.create = async (req, res, next) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.name) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -13,9 +13,12 @@ exports.create = async (req, res, next) => {
 
   // Create a score
   const score = new ScoreModel({
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false
+    name: req.body.name,
+    match: req.body.match,
+    player: req.body.player,
+    type: req.body.type,
+    count: req.body.count,
+    endOfMatch: req.body.endOfMatch ? req.body.endOfMatch : false
   });
 
   try {
@@ -31,10 +34,10 @@ exports.create = async (req, res, next) => {
 
 // Retrieve all scores from the database.
 exports.findAll = async (req, res) => {
-  const title = req.query.title;
-  var condition = title ? {
-    title: {
-      $regex: new RegExp(title),
+  const name = req.query.name;
+  var condition = name ? {
+    name: {
+      $regex: new RegExp(name),
       $options: "i"
     }
   } : {};
